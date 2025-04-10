@@ -1,6 +1,8 @@
 from functools import partial
 
 import model_accident
+model_accident.scaler
+model_accident.model
 
 print(1981, model.predict(
     scaler.fit_transform([[1981]])
