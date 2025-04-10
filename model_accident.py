@@ -3,6 +3,7 @@ from sklearn.model_selection import train_test_split
 from sklearn.preprocessing import StandardScaler
 from sklearn.linear_model import LinearRegression
 import matplotlib.pyplot as plt
+import numpy as np
 
 # ===  Lecture des fichiers ===
 
@@ -59,30 +60,35 @@ y_gravite = [xy[1] for xy in xy]
 
 print("Taille des données", "en entrée :", len(data_usagers), "retenus :", len(x_annee), len(y_gravite))
 
-# === Répartition des données ===
+# === répartition des données ===
 
-x_train, x_test, y_train, y_test = train_test_split(x_annee, y_gravite, test_size=0.3, random_state=42)
 
-# === Normalisation des données ===
+x_train, x_test, y_train, y_test = train_test_split(
+    x_annee, y_gravite, test_size=0.3, random_state=42)
+
+# === normlisation ===
 
 scaler = StandardScaler()
+
+x_train = np.array(x_train).reshape(-1, 1)
+x_test = np.array(x_test).reshape(-1, 1)
+
 x_train = scaler.fit_transform(x_train)
 x_test = scaler.transform(x_test)
 
-# === Choix de la stratégie ===
+# == Choix de la stratégie ===
 
 model = LinearRegression()
 
-# === Entraînement du modèle ===
+# === Entrainnement ===
 
 model.fit(x_train, y_train)
 
-# === Vérification du modèle ===
+# === Vérification ===
 
 y_pred = model.predict(x_test)
 
-plt.plot(x_test, y_test, "ro", x_test, y_test, "g^")
+plt.plot(x_test, y_test, "ro", x_test, y_pred, "g^")
 plt.ylabel("Gravité")
-plt.xlabel("Année")
+plt.xlabel("Années")
 plt.show()
-
