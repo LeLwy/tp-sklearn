@@ -1,5 +1,11 @@
 from functools import partial
 
+import model_accident
+
+print(1981, model.predict(
+    scaler.fit_transform([[1981]])
+))
+
 # serveur.py
 from flask import Flask
 from apiflask import APIFlask, Schema
